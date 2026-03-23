@@ -1,31 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import React, {useEffect, useState} from 'react'
-import Button from './src/Button/Button';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import MainStoreView from "./src/layout/MainStoreView/MainStoreView";
+import { Product } from "./src/metier/Product";
 
 export default function App() {
-  const [counter,setCounter]=useState(0)
-  useEffect(()=>{
-    console.log('updated:',counter);
-  },[counter])
-  useEffect(()=>{
-    console.log('montage du composant');
-    return ()=>{
-      console.log('demontage du composant')
-    }
-  },[])
+  const [products, setproducts] = useState<Array<Product>>([]);
+  useEffect(() => {
+    //try {
+      fetch("http://192.168.20.29:5679/products")
+        .then((r) => r.json())
+        .then((a) => setproducts(a));
+    //} catch (error) {}
+  }, []);
   return (
     <View style={styles.container}>
-      <Text>valeur de counter : {counter}</Text>
-      <Button bgColor="red" color="white" onButtonPressed={()=>{
-        setCounter(counter-1)
-        console.log(counter)
-      }} >-1</Button>
-      <Button bgColor="blue" color="white" onButtonPressed={()=>{
-        setCounter(counter+1)
-        console.log(counter);
-      }}>+1</Button>
-      <StatusBar style="auto" />
+      <MainStoreView products={products} />
     </View>
   );
 }
@@ -33,8 +23,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
