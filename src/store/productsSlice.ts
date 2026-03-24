@@ -23,6 +23,15 @@ const productsSlice = createSlice({
         p.titre.toLowerCase().includes(action.payload.toLowerCase()),
       );
     },
+    updateProduct: (s, action: { type: string; payload: IProduct }) => {
+      const p = s.products.findIndex((p) => p.id === action.payload.id);
+      if (p >= 0) {
+        s.products[p] = action.payload;
+      } else s.products.push(action.payload);
+    },
+    unselectProduct: (s, a) => {
+      s.selectedProduct = undefined;
+    },
     initialProductLoad: (
       state,
       action: { type: string; payload: Array<IProduct> },
@@ -36,6 +45,11 @@ const productsSlice = createSlice({
   },
 });
 
-export const { initialProductLoad, updateSearch } = productsSlice.actions;
+export const {
+  initialProductLoad,
+  updateSearch,
+  updateProduct,
+  unselectProduct,
+} = productsSlice.actions;
 const productsReducer = productsSlice.reducer;
 export default productsReducer;
