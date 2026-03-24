@@ -5,5 +5,14 @@ export interface IProduct{
     imageUrl:string
     thumbnailUrl:string
     stock?:number
-    prix?:number
+    prix:number
+    quant?:number
+}
+export const emptyProduct:IProduct={
+    titre:'',
+    description:'',
+    imageUrl:'',
+    thumbnailUrl:'',
+    prix:0,
+    stock:0,
 }
