@@ -3,18 +3,23 @@ import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
 import { TextInput } from "react-native";
 import { Product } from "../../metier/Product";
 import ProductInList from "../../ui/ProductInList/ProductInList";
+import CartIcon from "../../ui/CartIcon/CartIcon";
 interface IMainStoreView {
   products: Array<Product>;
 }
 const MainStoreView: React.FC<IMainStoreView> = (props) => {
   const [findValue, setfindValue] = useState<string>("");
+  const [cart, setCart] = useState<Array<Product>>([]);
   return (
     <View style={styles.MainStoreView}>
-      <TextInput
-        placeholder="Recherche"
-        style={styles.tinput}
-        onChangeText={(t) => setfindValue(t)}
-      />
+      <View style={{flexDirection:'row'}}>
+        <TextInput
+            placeholder="Recherche"
+            style={styles.tinput}
+            onChangeText={(t) => setfindValue(t)}
+        />
+        <CartIcon quantity={cart.length}/>
+      </View>
       <ScrollView style={styles.sview}>
         <View style={styles.svview}>
           {props.products
@@ -44,5 +49,5 @@ const styles = StyleSheet.create({
     width: "100%",
     flexWrap: "wrap",
   },
-  tinput: { height: 40, fontSize: 40 },
+  tinput: { height: 40, fontSize: 40 , flexGrow:1},
 });
