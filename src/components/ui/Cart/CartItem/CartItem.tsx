@@ -24,7 +24,7 @@ const CartItem = ({ product, onQuantChange }: Props) => {
             onQuantChange(product,undefined!==product.quant?product.quant-1:0)
         }}/>
         <Button title=" + " color={'skyblue'} onPress={()=>{
-             onQuantChange(product,undefined!==product.quant?product.quant+1:0)
+             onQuantChange(product,undefined!==product.quant?product.quant+1:1)
         }}/>
       </View>
       </View>
