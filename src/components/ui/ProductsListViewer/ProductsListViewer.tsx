@@ -7,11 +7,13 @@ import ProductViewer from "../ProductViewer/ProductViewer";
 interface IProductsListViewerProps {
   products: Array<IProduct>;
   onProductAddToCart: (prod: IProduct) => void;
+  onProductAskEdition:(prod:IProduct)=>void
 }
 
 const ProductsListViewer = ({
   products,
   onProductAddToCart,
+  onProductAskEdition,
 }: IProductsListViewerProps) => {
   return (
     <View style={styles.container}>
@@ -21,6 +23,7 @@ const ProductsListViewer = ({
             onProductAddToCart={onProductAddToCart}
             key={element.id}
             product={element}
+            onProductEditTouch={onProductAskEdition}
           />
         );
       })}

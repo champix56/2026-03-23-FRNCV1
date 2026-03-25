@@ -17,9 +17,30 @@ const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    searchByBarcode:(s,a:{type:string,payload:string})=>{
-      s.filtredProducts=s.products.filter(p=>p.cb===a.payload)
-      s.search=a.payload
+    selectProductToEdition: (s, a: { type: string; payload: IProduct }) => {
+      s.selectedProduct=a.payload
+    },
+    updateProductEdited:(s,a:{type:string,payload:IProduct})=>{
+      const position=s.products.findIndex(p=>p.id===a.payload.id)
+      if(position===-1){
+        //nouveau product
+        return
+      }
+      else{
+        s.products[position]=a.payload
+      }
+      s.filtredProducts=s.products.filter(p=>{
+        if(!Number.isNaN(s.search)){
+          return p.titre.toLowerCase().includes(s.search.toLowerCase())
+        }
+        else{
+          return p.cb===s.search
+        }
+      })
+    },
+    searchByBarcode: (s, a: { type: string; payload: string }) => {
+      s.filtredProducts = s.products.filter((p) => p.cb === a.payload);
+      s.search = a.payload;
     },
     updateSearch: (state, action: { type: string; payload: string }) => {
       state.search = action.payload;
@@ -52,7 +73,8 @@ const productsSlice = createSlice({
   },
 });
 
-export const { initialProductLoad, updateSearch, searchByBarcode } = productsSlice.actions;
+export const { initialProductLoad, updateSearch, searchByBarcode, selectProductToEdition, updateProductEdited } =
+  productsSlice.actions;
 const productsReducer = productsSlice.reducer;
 export default productsReducer;
 

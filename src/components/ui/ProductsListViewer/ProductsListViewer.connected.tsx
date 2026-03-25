@@ -5,6 +5,8 @@ import { useSelector, connect, useDispatch } from "react-redux";
 import { IProduct } from "../../../interfaces/IProducts";
 import { AppDispatch, RootState } from "../../../store/store";
 import { addProduct } from "../../../store/cartSlice";
+import { selectProductToEdition } from "../../../store/productsSlice";
+import { useNavigation } from "@react-navigation/native";
 type Props = {
   style?: any;
 };
@@ -12,10 +14,16 @@ type Props = {
 const ProductsListViewer = (props: Props) => {
   const products = useSelector((s: RootState) => s.stock.filtredProducts);
   const d = useDispatch<AppDispatch>();
+  const n=useNavigation()
   return (
     <ProductsListViewerUnconnected
       onProductAddToCart={(prod) => {
         d(addProduct(prod));
+      }}
+      onProductAskEdition={(p)=>{
+        d(selectProductToEdition(p))
+        //@ts-ignore
+        n.navigate('edit')
       }}
       {...props}
       products={products}

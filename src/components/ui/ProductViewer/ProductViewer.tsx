@@ -12,9 +12,10 @@ import { IProduct } from "../../../interfaces/IProducts";
 interface IProductViewerProps {
   product: IProduct;
   onProductAddToCart:(prod:IProduct)=>void
+  onProductEditTouch:(product:IProduct)=>void
 }
 
-const ProductViewer = ({ product, onProductAddToCart }: IProductViewerProps) => {
+const ProductViewer = ({ product, onProductAddToCart, onProductEditTouch }: IProductViewerProps) => {
   return (
     <View style={styles.ProductViewer}>
       <Text style={[styles.titre, styles.bold]}>{product.titre}</Text>
@@ -37,6 +38,9 @@ const ProductViewer = ({ product, onProductAddToCart }: IProductViewerProps) => 
       </View>
       <Button title="ajouter panier" onPress={()=>{
         onProductAddToCart(product)
+      }} />
+      <Button title="Edition article" color={'tomato'} onPress={()=>{
+        onProductEditTouch(product)
       }} />
     </View>
   );

@@ -3,7 +3,7 @@ import React from 'react'
 import CartConnected from '../components/ui/Cart/Cart.connected'
 
 
-const cart = () => {
+const Cart = () => {
   return (
     <View style={{flex:1}}>
       <CartConnected/>
@@ -11,4 +11,4 @@ const cart = () => {
   )
 }
 
-export default cart
+export default Cart
