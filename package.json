@@ -7,7 +7,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "json": "json-server -H 0.0.0.0 -p 60000 db.json"
+    "json": "json-server -H 0.0.0.0 -p 60000 db.json",
+    "build":"eas build --platform all",
+    "build:apk:local":"eas build -p android --profile previewAPK  --local"
   },
   "dependencies": {
     "@react-navigation/elements": "^2.9.12",
